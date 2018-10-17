@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author alijackson.msilva
+ * @gabriel.fandrade
  */
 public class Connect {
      
