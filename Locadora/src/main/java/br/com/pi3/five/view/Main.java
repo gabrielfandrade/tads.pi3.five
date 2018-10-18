@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.pi3.locadora.view;
+package br.com.pi3.five.view;
 
-import com.pi3.locadora.veiculo.Veiculo;
+import br.com.pi3.five.veiculo.Veiculo;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;

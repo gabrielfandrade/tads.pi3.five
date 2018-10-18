@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.pi3.locadora.dao;
+package br.com.pi3.five.dao;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,8 +24,7 @@ public class Connect {
     private static final String USER = "locadora";
     private static final String PASS = "";
 
-    public static java.sql.Connection getConnection() {
-
+        public static Connection getConnection() {
         try {
             Class.forName(DRIVER);
             return DriverManager.getConnection(URL, USER, PASS);
@@ -32,8 +32,7 @@ public class Connect {
             throw new RuntimeException("Erro na conexão!", ex);
         }
     }
-
-    public static void closeConnection(java.sql.Connection con) {
+    public static void closeConnection(Connection con) {
         try {
             if (con != null) {
                 con.close();
@@ -41,12 +40,9 @@ public class Connect {
         } catch (SQLException ex) {
             Logger.getLogger(Connect.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
-
-    public static void closeConnection(java.sql.Connection con, PreparedStatement stmt) {
+    public static void closeConnection(Connection con, PreparedStatement stmt) {
         closeConnection(con);
-
         try {
             if (stmt != null) {
                 stmt.close();
@@ -55,10 +51,8 @@ public class Connect {
             Logger.getLogger(Connect.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    public static void closeConnection(java.sql.Connection con, PreparedStatement stmt, ResultSet rs) {
+    public static void closeConnection(Connection con, PreparedStatement stmt, ResultSet rs) {
         closeConnection(con, stmt);
-
         try {
             if (rs != null) {
                 rs.close();
@@ -67,6 +61,4 @@ public class Connect {
             Logger.getLogger(Connect.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    
 }

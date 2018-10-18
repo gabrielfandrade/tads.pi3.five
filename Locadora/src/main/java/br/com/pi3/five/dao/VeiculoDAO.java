@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.pi3.locadora.daoVeiculo;
+package br.com.pi3.five.dao;
 
-import com.pi3.locadora.dao.Connect;
-import com.pi3.locadora.veiculo.Veiculo;
+import br.com.pi3.five.veiculo.Veiculo;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.Date;
@@ -20,7 +19,11 @@ import javax.swing.JOptionPane;
  *
  * @author Pichau
  */
-public class CrudVeiculo {
+public class VeiculoDAO {
+    
+    public VeiculoDAO(){
+    
+    }
 
     public void adicionarVeiculo(Veiculo v) throws SQLException {
 
@@ -52,9 +55,7 @@ public class CrudVeiculo {
             JOptionPane.showMessageDialog(null, "Erro ao salvar"
                     + e);
         } finally {
-            if (conn != null && !conn.isClosed()) {
-                conn.close();
-            }
+            Connect.closeConnection(conn, stmt);
         }
     }
 
@@ -96,9 +97,7 @@ public class CrudVeiculo {
             JOptionPane.showMessageDialog(null, "Erro ao salvar"
                     + e);
         } finally {
-            if (conn != null && !conn.isClosed()) {
-                conn.close();
-            }
+            Connect.closeConnection(conn, stmt, rst);
         }
 
         return veiculos;
@@ -144,9 +143,7 @@ public class CrudVeiculo {
             JOptionPane.showMessageDialog(null, "Erro ao salvar"
                     + e);
         } finally {
-            if (conn != null && !conn.isClosed()) {
-                conn.close();
-            }
+            Connect.closeConnection(conn, stmt, rst);
         }
 
         return veiculos;
@@ -182,9 +179,7 @@ public class CrudVeiculo {
             JOptionPane.showMessageDialog(null, "Erro ao salvar"
                     + e);
         } finally {
-            if (conn != null && !conn.isClosed()) {
-                conn.close();
-            }
+            Connect.closeConnection(conn, stmt);
         }
     }
 }
