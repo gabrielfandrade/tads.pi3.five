@@ -5,6 +5,7 @@
  */
 package br.com.pi3.five.view;
 
+import br.com.pi3.five.servico.ServicoVeiculo;
 import br.com.pi3.five.veiculo.Veiculo;
 import java.io.File;
 import java.io.IOException;
@@ -25,36 +26,39 @@ import javax.servlet.http.HttpServletResponse;
 public class Main extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request,
-            HttpServletResponse response)
-            throws ServletException, IOException {
+        protected void doGet(HttpServletRequest request,
+                HttpServletResponse response)
+                throws ServletException, IOException {
+            RequestDispatcher dispatcher
+                    = request.getRequestDispatcher("CadastrarVeiculo.jsp");
 
-        RequestDispatcher dispatcher
-                = request.getRequestDispatcher("CadastrarVeiculo.jsp");
+            dispatcher.forward(request, response);
 
-        dispatcher.forward(request, response);
+        }
 
-    }
+        @Override
+        protected void doPost(HttpServletRequest request,
+                HttpServletResponse response)
+                throws ServletException, IOException {
 
-    @Override
-    protected void doPost(HttpServletRequest request,
-            HttpServletResponse response)
-            throws ServletException, IOException {
+            Veiculo veiculo = new Veiculo(
+                    request.getParameter("modelo"),
+                    request.getParameter("categoria"),
+                    Date.valueOf(request.getParameter("ano")),
+                    request.getParameter("placa"),
+                    request.getParameter("marca"),
+                    Integer.parseInt(request.getParameter("ndocumento")),
+                    request.getParameter("caracteristicas"),
+                    (File) request.getAttribute("imagem"));
 
-        Veiculo veiculo = new Veiculo();
-        veiculo.setModelo(request.getParameter("modelo"));
-        veiculo.setCategoria(request.getParameter("categoria"));
-        veiculo.setAno(Date.valueOf(request.getParameter("ano")));
-        veiculo.setCaracter(request.getParameter("caracter"));
-        veiculo.setPlaca(request.getParameter("placa"));
-        veiculo.setMarca(request.getParameter("marca"));
-        veiculo.setNumeroDoc(Integer.parseInt(request.getParameter("ndocumento")));
-        File file = new File(request.getParameter("imagem"));
-        veiculo.setImagem(file);
-        
-        RequestDispatcher dispatcher
-                = request.getRequestDispatcher("CadastrarVeiculo.jsp");
-        
-        dispatcher.forward(request, response);
-    }
+            ServicoVeiculo v = new ServicoVeiculo();
+            String log = v.inserir(veiculo);
+
+            request.setAttribute("result", "Ocorreu tudo bem\n" + "<br>" + log);
+
+            RequestDispatcher dispatcher
+                    = request.getRequestDispatcher("index.html");
+
+            dispatcher.forward(request, response);
+        }
 }
