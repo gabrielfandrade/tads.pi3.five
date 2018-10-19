@@ -25,10 +25,12 @@ public class VeiculoDAO {
     
     }
 
-    public void adicionarVeiculo(Veiculo v) throws SQLException {
+    public String adicionarVeiculo(Veiculo v) throws SQLException {
 
         Connection conn = Connect.getConnection();
         PreparedStatement stmt = null;
+        
+        String log = "";
 
         try {
 
@@ -52,11 +54,12 @@ public class VeiculoDAO {
             JOptionPane.showMessageDialog(null, "Salvo com sucesso");
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao salvar"
-                    + e);
+            log = e.toString();
         } finally {
             Connect.closeConnection(conn, stmt);
         }
+        
+        return log;
     }
 
     public ArrayList<Veiculo> ApresentarTodosVeiculos() throws SQLException {
@@ -173,12 +176,32 @@ public class VeiculoDAO {
 
             stmt.execute();
 
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso");
+            JOptionPane.showMessageDialog(null, "Alterado com sucesso");
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao salvar"
+            JOptionPane.showMessageDialog(null, "Erro ao alterar os dados"
                     + e);
         } finally {
+            Connect.closeConnection(conn, stmt);
+        }
+    }
+    
+    public void excluir(int id){
+        Connection conn = Connect.getConnection();
+        PreparedStatement stmt = null;
+        String sql = "DELETE FROM VEICULO WHERE (IDVEICULO=?)";
+        
+        try{
+        
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Excluido com sucesso");
+        
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "erro ao atualizar" + e);
+        }finally{
             Connect.closeConnection(conn, stmt);
         }
     }

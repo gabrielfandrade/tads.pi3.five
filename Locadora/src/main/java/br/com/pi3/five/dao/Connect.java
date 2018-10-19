@@ -21,7 +21,7 @@ public class Connect {
      
     private static final String DRIVER = "com.mysql.jdbc.Driver";
     private static final String URL = "jdbc:mysql://localhost:3306/locadora";
-    private static final String USER = "locadora";
+    private static final String USER = "root";
     private static final String PASS = "";
 
         public static Connection getConnection() {
@@ -32,17 +32,17 @@ public class Connect {
             throw new RuntimeException("Erro na conexão!", ex);
         }
     }
-    public static void closeConnection(Connection con) {
+    public static void closeConnection(Connection conn) {
         try {
-            if (con != null) {
-                con.close();
+            if (conn != null) {
+                conn.close();
             }
         } catch (SQLException ex) {
             Logger.getLogger(Connect.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public static void closeConnection(Connection con, PreparedStatement stmt) {
-        closeConnection(con);
+    public static void closeConnection(Connection conn, PreparedStatement stmt) {
+        closeConnection(conn);
         try {
             if (stmt != null) {
                 stmt.close();
@@ -51,8 +51,8 @@ public class Connect {
             Logger.getLogger(Connect.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public static void closeConnection(Connection con, PreparedStatement stmt, ResultSet rs) {
-        closeConnection(con, stmt);
+    public static void closeConnection(Connection conn, PreparedStatement stmt, ResultSet rs) {
+        closeConnection(conn, stmt);
         try {
             if (rs != null) {
                 rs.close();

@@ -19,18 +19,19 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author gabriel.fandrade
+ * @author Pichau
  */
-@WebServlet(name = "Locadora", urlPatterns = {"/main"})
+@WebServlet(name = "CadastrarVeiculo", urlPatterns = {"/cadastrarVeiculo"})
+public class CadastrarVeiculo {
 
-public class Main extends HttpServlet {
+    public class Cadastrar extends HttpServlet {
 
-    @Override
+        @Override
         protected void doGet(HttpServletRequest request,
                 HttpServletResponse response)
                 throws ServletException, IOException {
             RequestDispatcher dispatcher
-                    = request.getRequestDispatcher("index.jsp");
+                    = request.getRequestDispatcher("CadastrarVeiculo.jsp");
 
             dispatcher.forward(request, response);
 
@@ -61,4 +62,5 @@ public class Main extends HttpServlet {
 
             dispatcher.forward(request, response);
         }
+    }
 }

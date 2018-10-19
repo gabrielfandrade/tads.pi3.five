@@ -95,6 +95,23 @@ public class Veiculo {
     public void setImagem(File imagem) {
         this.imagem = imagem;
     }
+
+    public Veiculo(String modelo, String categoria, 
+            Date ano, String placa, String marca, int numeroDoc, 
+            String caracter, File imagem) {
+        setModelo(modelo);
+        setCategoria(categoria);
+        setAno(ano);
+        setPlaca(placa);
+        setMarca(marca);
+        setNumeroDoc(numeroDoc);
+        setCaracter(caracter);
+        setImagem(imagem);
+        
+    }
     
+    public Veiculo(){
+    
+    }
     
 }
